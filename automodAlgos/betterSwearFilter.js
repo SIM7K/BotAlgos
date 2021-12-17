@@ -35,6 +35,8 @@ Be careful with the aliases, for example adding L to the i array could cause iss
 Algorithm could probably be improved a bit speed wise, this will probably be done in the future. (for now as efficient as I can write it)
 This is perfect for automod algorithms that don't want to only involve a simple in search.
 
+!!UPDATE: THIS ALGORITHM IS SHIT, WAIT FOR THE UPDATED SOLUTION UNLESS REALLY DESPERATE!!
+
 This is a js rewrite of the original python algo. My js is rusty as fu(k ;) so if you spot some kind of issue tell me immediately.
 */
 function checkForCusses(msg, cusses, aliasTables){
