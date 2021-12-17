@@ -36,6 +36,10 @@ aliasTables = {
 # Algorithm could probably be improved a bit speed wise, this will probably be done in the future. (for now as efficient as I can write it)
 # This is perfect for automod algorithms that don't want to only involve a simple in search.
 
+
+#!!UPDATE: THIS ALGORITHM IS SHIT, WAIT FOR THE UPDATED SOLUTION UNLESS REALLY DESPERATE!!
+
+
 def checkForCusses(msg, cusses, aliasTables):
     msg = msg.lower()
     for cuss in cusses:
