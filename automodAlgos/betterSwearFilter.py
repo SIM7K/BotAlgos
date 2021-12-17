@@ -43,13 +43,13 @@ def checkForCusses(msg, cusses, aliasTables):
         curseFound = False
         lastCachedChar = ""
         for x in msg: 
-            if x in aliasTables[cussToListToRemoveFrom[0]]: 
-                lastCachedChar = aliasTables[cussToListToRemoveFrom[0]]
+            if x in aliasTables.get(cussToListToRemoveFrom[0], cussToListToRemoveFrom[0]): 
+                lastCachedChar = aliasTables.get(cussToListToRemoveFrom[0], cussToListToRemoveFrom[0])
                 del cussToListToRemoveFrom[0]
                 curseFound = True
             elif  x in lastCachedChar:
                 pass
-            elif curseFound and not x in aliasTables[cussToListToRemoveFrom[0]] and not x in lastCachedChar:
+            elif curseFound and not x in aliasTables.get(cussToListToRemoveFrom[0], cussToListToRemoveFrom[0]) and not x in lastCachedChar:
                 cussToListToRemoveFrom = list(cuss)
                 curseFound = False
             if len(cussToListToRemoveFrom) == 0:
