@@ -57,7 +57,7 @@ for char in stri:
     elif char not in cached_char:
         newstri.append(newAliasTables.get(char, char))
         ind += 1
-        cached_char = newAliasTables.get(char, char)
+        cached_char = aliasTables.get(newAliasTables.get(char, char), [char])
 
 joined_newstri = "".join(newstri)
 
