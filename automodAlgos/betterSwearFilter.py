@@ -1,61 +1,83 @@
-# This simple algorithm can filter out swear words and even detect bypassing.
-# Input format: string, array, dictionary
-# AliasTables example:
-"""
-aliasTables = {
-           "a": ["a", "@"],
-           "b": ["b"],
-           "c": ["c"],
-           "d": ["d"],
-           "e": ["e"],
-           "f": ["f"],
-           "g": ["g"],
-           "h": ["h"],
-           "i": ["i"],
-           "j": ["j"],
-           "k": ["k"],
-           "l": ["l"],
-           "m": ["m"],
-           "n": ["n"],
-           "o": ["o"],
-           "p": ["p"],
-           "q": ["q"],
-           "r": ["r"],
-           "s": ["s"],
-           "t": ["t"],
-           "u": ["u"],
-           "v": ["v"],
-           "w": ["w"],
-           "x": ["x"],
-           "y": ["y"],
-           "z": ["z"]
-}
-"""
-# Adding more "aliases" is simple, you just add it to the array of the letter like so: ["i", "1"]
-# Be careful with the aliases, for example adding L to the i array could cause issues.
-# Algorithm could probably be improved a bit speed wise, this will probably be done in the future. (for now as efficient as I can write it)
-# This is perfect for automod algorithms that don't want to only involve a simple in search.
+aliasTables =  {
+            "a": ["a", "@"],
+            "b": ["b"],
+            "c": ["c"],
+            "d": ["d"],
+            "e": ["e"],
+            "f": ["f"],
+            "g": ["g"],
+            "h": ["h"],
+            "i": ["i", "1"],
+            "j": ["j"],
+            "k": ["k"],
+            "l": ["l"],
+            "m": ["m"],
+            "n": ["n"],
+            "o": ["o"],
+            "p": ["p"],
+            "q": ["q"],
+            "r": ["r"],
+            "s": ["s", "$"],
+            "t": ["t", "7"],
+            "u": ["u"],
+            "v": ["v"],
+            "w": ["w"],
+            "x": ["x"],
+            "y": ["y"],
+            "z": ["z"]
+        }
 
+def convertForSeekAliasTables(aliasTables):
+    cvtResult = {}
+    for key in aliasTables:
+        for element in aliasTables[key]:
+            cvtResult[element] = key
+    return cvtResult
 
-#!!UPDATE: THIS ALGORITHM IS SHIT, WAIT FOR THE UPDATED SOLUTION UNLESS REALLY DESPERATE!!
+newAliasTables = convertForSeekAliasTables(aliasTables)
 
+swears = ["shit"]
+swears_nospaceatfront = ["fuck"]
 
-def checkForCusses(msg, cusses, aliasTables):
-    msg = msg.lower()
-    for cuss in cusses:
-        cussToListToRemoveFrom = list(cuss)
-        curseFound = False
-        lastCachedChar = ""
-        for x in msg: 
-            if x in aliasTables.get(cussToListToRemoveFrom[0], cussToListToRemoveFrom[0]): 
-                lastCachedChar = aliasTables.get(cussToListToRemoveFrom[0], cussToListToRemoveFrom[0])
-                del cussToListToRemoveFrom[0]
-                curseFound = True
-            elif  x in lastCachedChar:
-                pass
-            elif curseFound and not x in aliasTables.get(cussToListToRemoveFrom[0], cussToListToRemoveFrom[0]) and not x in lastCachedChar:
-                cussToListToRemoveFrom = list(cuss)
-                curseFound = False
-            if len(cussToListToRemoveFrom) == 0:
-                return True
+seps = ["_", ".", " "]
+
+#initialised
+
+#run this to transform string into baseline
+
+stri = "testshiiiit coalfuck"
+newstri = []
+cached_char = []
+ind = 0
+spaces = []
+for char in stri:
+    if char in seps and not char in cached_char:
+        spaces.append(ind)
+        cached_char = seps
+    elif char not in cached_char:
+        newstri.append(newAliasTables.get(char, char))
+        ind += 1
+        cached_char = newAliasTables.get(char, char)
+
+joined_newstri = "".join(newstri)
+
+print(joined_newstri)
+
+#run this to check for swears
+
+def seek_with_spaces():
+    for swear in swears:
+        if swear in joined_newstri:
+            indexes = [index for index in range(len(joined_newstri)) if joined_newstri.startswith(swear, index)]
+            for index in indexes:
+                if index in spaces:
+                    return True
     return False
+
+def seek_without_spaces():
+    for swear in swears:
+        if swear in joined_newstri:
+            return True
+    return False
+
+#figure this out yourself i am too tired to explain it
