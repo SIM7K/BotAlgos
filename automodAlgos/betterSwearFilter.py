@@ -66,7 +66,7 @@ print(joined_newstri)
 #run this to check for swears
 
 def seek_with_spaces():
-    for swear in swears:
+    for swear in swears_nospaceatfront:
         if swear in joined_newstri:
             indexes = [index for index in range(len(joined_newstri)) if joined_newstri.startswith(swear, index)]
             for index in indexes:
